@@ -13,3 +13,14 @@ Once you have installed AntiTeamFlash on your server, simply add the following t
 ```
 sp load anti_team_flash
 ```
+
+<br>
+## Configuration
+After having loaded the plugin once, a configuration file will have been created on your server at **../cfg/source-python/anti_team_flash.cfg**
+
+Edit that file to your liking.  The current default configuration file looks like:
+```
+// Default Value: 0
+// Enable/Disable flashing the thrower of the flashbang.
+   atf_flash_thrower 0
+```
