@@ -21,6 +21,6 @@ info.author = 'Satoon101'
 info.version = '1.0'
 info.basename = 'anti_team_flash'
 info.variable = info.basename + '_version'
-info.url = ''
+info.url = 'http://forums.sourcepython.com/showthread.php?895'
 info.convar = PublicConVar(
     info.variable, info.version, 0, info.name + ' Version')
