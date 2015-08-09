@@ -11,6 +11,7 @@ from config.manager import ConfigManager
 #   Cvars
 from cvars.flags import ConVarFlags
 #   Entities
+from entities.hooks import EntityCondition
 from entities.hooks import EntityPostHook
 from entities.hooks import EntityPreHook
 #   Memory
@@ -54,25 +55,27 @@ with ConfigManager(info.basename, 'atf_') as config:
 # =============================================================================
 # >> FUNCTION HOOKS
 # =============================================================================
-@EntityPreHook('CCSBot', 'blind')
+@EntityPreHook(EntityCondition.is_bot_player, 'blind')
 def _pre_bot_blind(args):
     """Check the bot's team to determine if blind needs blocked."""
     return _block_team_flash(args)
 
 
-@EntityPreHook('CCSPlayer', 'blind')
+@EntityPreHook(EntityCondition.is_human_player, 'blind')
 def _pre_player_blind(args):
     """Check the player's team to determine if blind needs blocked."""
     return _block_team_flash(args)
 
 
-@EntityPreHook('CCSPlayer', 'deafen')
+@EntityPreHook(EntityCondition.is_player, 'deafen')
 def _pre_player_deafen(args):
     """Check the player's team to determine if deafen needs blocked."""
     return _block_team_flash(args)
 
 
-@EntityPreHook('CFlashbangProjectile', 'detonate')
+@EntityPreHook(
+        EntityCondition.equals_entity_classname('flashbang_projectile'),
+        'detonate')
 def _pre_flashbang_detonate(args):
     """Store the flashbang's thrower/team to compare against player teams."""
     global _flashbang_team, _flashbang_thrower
@@ -91,7 +94,9 @@ def _pre_flashbang_detonate(args):
         _flashbang_thrower = userid_from_index(owner.index)
 
 
-@EntityPostHook('CFlashbangProjectile', 'detonate')
+@EntityPostHook(
+        EntityCondition.equals_entity_classname('flashbang_projectile'),
+        'detonate')
 def _post_detonate(args, return_value):
     """Reset the variables so that only flashbang blinding is blocked."""
     global _flashbang_team, _flashbang_thrower
