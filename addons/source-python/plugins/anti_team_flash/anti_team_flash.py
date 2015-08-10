@@ -73,9 +73,8 @@ def _pre_player_deafen(args):
     return _block_team_flash(args)
 
 
-@EntityPreHook(
-        EntityCondition.equals_entity_classname('flashbang_projectile'),
-        'detonate')
+@EntityPreHook(EntityCondition.equals_entity_classname(
+    'flashbang_projectile'), 'detonate')
 def _pre_flashbang_detonate(args):
     """Store the flashbang's thrower/team to compare against player teams."""
     global _flashbang_team, _flashbang_thrower
@@ -94,9 +93,8 @@ def _pre_flashbang_detonate(args):
         _flashbang_thrower = userid_from_index(owner.index)
 
 
-@EntityPostHook(
-        EntityCondition.equals_entity_classname('flashbang_projectile'),
-        'detonate')
+@EntityPostHook(EntityCondition.equals_entity_classname(
+    'flashbang_projectile'), 'detonate')
 def _post_detonate(args, return_value):
     """Reset the variables so that only flashbang blinding is blocked."""
     global _flashbang_team, _flashbang_thrower
