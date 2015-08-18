@@ -7,7 +7,7 @@ This plugin stops players from being flashed by teammates.
 
 <br>
 ## Installation
-To install, simply download the current release from its [release thread](...) and install it into the main directory for your server.
+To install, simply download the current release from its [release thread](http://forums.sourcepython.com/showthread.php?895) and install it into the main directory for your server.
 
 Once you have installed AntiTeamFlash on your server, simply add the following to your autoexec.cfg file:
 ```
