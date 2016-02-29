@@ -18,9 +18,8 @@ from plugins.info import PluginInfo
 info = PluginInfo()
 info.name = 'Anti Team Flash'
 info.author = 'Satoon101'
-info.version = '1.1'
+info.version = '1.2'
 info.basename = 'anti_team_flash'
 info.variable = info.basename + '_version'
 info.url = 'http://forums.sourcepython.com/showthread.php?895'
-info.convar = PublicConVar(
-    info.variable, info.version, 0, info.name + ' Version')
+info.convar = PublicConVar(info.variable, info.version, info.name + ' Version')
