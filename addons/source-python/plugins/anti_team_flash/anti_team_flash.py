@@ -36,14 +36,17 @@ _flashbang_team = None
 _flashbang_thrower = None
 
 # Get the config strings to use
-config_strings = LangStrings(info.basename)
+config_strings = LangStrings(info.name)
+
+# Store the flashbang condition
+_is_flashbang = EntityCondition.equals_entity_classname('flashbang_projectile')
 
 
 # =============================================================================
 # >> CONFIGURATION
 # =============================================================================
 # Create the config file
-with ConfigManager(info.basename, 'atf_') as config:
+with ConfigManager(info.name, 'atf_') as config:
 
     # Create the thrower convar
     flash_thrower = config.cvar('flash_thrower', 0, config_strings['Thrower'])
@@ -73,39 +76,28 @@ def _block_blind_and_deafen(args):
     # Is player spectating?
     if player.team <= 1:
 
-        # Allow spec flash?
-        if flash_spectator.get_int():
-            return
-
-        # Block spec flash?
-        else:
-            return False
+        # Allow spec flash if cvar set
+        return None if flash_spectator.get_bool() else False
 
     # Is player dead?
-    if player.isdead:
+    if player.dead:
 
-        # Allow dead flash?
-        if flash_dead.get_int():
-            return
-
-        # Block spec flash?
-        else:
-            return False
+        # Allow dead flash if cvar set
+        return None if flash_dead.get_bool() else False
 
     # Is the player on a different team than the thrower?
     if player.team != _flashbang_team:
         return
 
     # Allow self flash
-    if player.userid == _flashbang_thrower and flash_thrower.get_int():
+    if player.userid == _flashbang_thrower and flash_thrower.get_bool():
         return
 
     # Block the flash for the player
     return False
 
 
-@EntityPreHook(EntityCondition.equals_entity_classname(
-        'flashbang_projectile'), 'detonate')
+@EntityPreHook(_is_flashbang, 'detonate')
 def _pre_flashbang_detonate(args):
     """Store the flashbang's thrower/team to compare against player teams."""
     global _flashbang_team, _flashbang_thrower
@@ -117,15 +109,14 @@ def _pre_flashbang_detonate(args):
     _flashbang_team = weapon.team
 
     # Get the weapon's thrower
-    owner = weapon.current_owner
+    owner = weapon.owner
 
     # Store the owner's userid
     if owner is not None:
         _flashbang_thrower = userid_from_index(owner.index)
 
 
-@EntityPostHook(EntityCondition.equals_entity_classname(
-    'flashbang_projectile'), 'detonate')
+@EntityPostHook(_is_flashbang, 'detonate')
 def _post_flashbang_detonate(args, return_value):
     """Reset the variables so that only flashbang blinding is blocked."""
     global _flashbang_team, _flashbang_thrower
