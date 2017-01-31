@@ -5,24 +5,18 @@
 # =============================================================================
 # >> IMPORTS
 # =============================================================================
-# Source.Python Imports
-#   Config
+# Source.Python
 from config.manager import ConfigManager
-#   Entities
 from entities.hooks import EntityCondition
 from entities.hooks import EntityPostHook
 from entities.hooks import EntityPreHook
-#   Memory
 from memory import make_object
-#   Players
 from players.entity import Player
 from players.helpers import userid_from_index
-#   Translations
 from translations.strings import LangStrings
-#   Weapons
 from weapons.entity import Weapon
 
-# Script Imports
+# Plugin
 from .info import info
 
 
