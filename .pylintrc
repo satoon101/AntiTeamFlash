@@ -7,7 +7,10 @@ ignore=
 # Definitions of codes disabled
 # For a list of error codes, see:
 #   http://pylint-messages.wikidot.com/all-codes
-disable=E0611,F0401,W0603
+disable=
+    bad-continuation,
+    import-error,
+    no-name-in-module,
 
 
 [BASIC]
@@ -57,4 +60,4 @@ ignore-docstrings=yes
 
 
 [VARIABLES]
-dummy-variables-rgx=args|return_value
+dummy-variables-rgx=stack_data|return_value
