@@ -11,7 +11,7 @@ To install, simply download the current release from its [release thread](http:/
 
 Once you have installed AntiTeamFlash on your server, simply add the following to your autoexec.cfg file:
 ```
-sp load anti_team_flash
+sp plugin load anti_team_flash
 ```
 
 <br>
@@ -23,4 +23,14 @@ Edit that file to your liking.  The current default configuration file looks lik
 // Default Value: 0
 // Enable/Disable flashing the thrower of the flashbang.
    atf_flash_thrower 0
+
+
+// Default Value: 1
+// Enable/Disable flashing spectators.
+   atf_flash_spectator 1
+
+
+// Default Value: 1
+// Enable/Disable flashing dead players.
+   atf_flash_dead 1
 ```
