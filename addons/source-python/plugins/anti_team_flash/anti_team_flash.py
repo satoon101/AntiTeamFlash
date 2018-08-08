@@ -6,44 +6,16 @@
 # >> IMPORTS
 # =============================================================================
 # Source.Python
-from config.manager import ConfigManager
 from entities.hooks import EntityCondition
 from entities.hooks import EntityPostHook
 from entities.hooks import EntityPreHook
 from memory import make_object
 from players.entity import Player
 from players.helpers import userid_from_index
-from translations.strings import LangStrings
 from weapons.entity import Weapon
 
 # Plugin
-from .info import info
-
-
-# =============================================================================
-# >> GLOBAL VARIABLES
-# =============================================================================
-# Get the config strings to use
-config_strings = LangStrings(info.name)
-
-# Store the flashbang condition
-_is_flashbang = EntityCondition.equals_entity_classname('flashbang_projectile')
-
-
-# =============================================================================
-# >> CONFIGURATION
-# =============================================================================
-# Create the config file
-with ConfigManager(info.name, 'atf_') as config:
-
-    # Create the thrower convar
-    flash_thrower = config.cvar('flash_thrower', 0, config_strings['Thrower'])
-
-    # Create the spectator convar
-    flash_spectator = config.cvar('flash_spectator', 1, config_strings['Spec'])
-
-    # Create the dead convar
-    flash_dead = config.cvar('flash_dead', 1, config_strings['Dead'])
+from .config import flash_dead, flash_spectator, flash_thrower
 
 
 # =============================================================================
@@ -111,11 +83,17 @@ def _block_blind_and_deafen(stack_data):
     return _flash_manager.should_block_blind_and_deafen(stack_data)
 
 
-@EntityPreHook(_is_flashbang, 'detonate')
+@EntityPreHook(
+    EntityCondition.equals_entity_classname('flashbang_projectile'),
+    'detonate'
+)
 def _pre_flashbang_detonate(stack_data):
     _flash_manager.pre_detonate(stack_data)
 
 
-@EntityPostHook(_is_flashbang, 'detonate')
+@EntityPostHook(
+    EntityCondition.equals_entity_classname('flashbang_projectile'),
+    'detonate'
+)
 def _post_flashbang_detonate(stack_data, return_value):
     _flash_manager.post_detonate()
