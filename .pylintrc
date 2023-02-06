@@ -18,7 +18,7 @@ disable=
 module-rgx=[a-z_][a-z0-9_]{2,30}$
 
 # Constant name regex
-const-rgx=[a-z_][a-zA-Z0-9_]{2,30}$
+const-rgx=[a-z_][a-z0-9_]{2,30}$|[A-Z_][A-Z0-9_]{2,30}$
 
 # Class name regex
 class-rgx=[A-Z_][a-zA-Z0-9]+$
@@ -60,4 +60,4 @@ ignore-docstrings=yes
 
 
 [VARIABLES]
-dummy-variables-rgx=stack_data|return_value
+ignored-argument-names=stack_data|return_value

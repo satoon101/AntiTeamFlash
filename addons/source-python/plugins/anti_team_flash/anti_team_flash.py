@@ -21,7 +21,7 @@ from .config import flash_dead, flash_spectator, flash_thrower
 # =============================================================================
 # >> CLASSES
 # =============================================================================
-class _FlashManager(object):
+class _FlashManager:
     flashbang_team = None
     flashbang_thrower = None
 
@@ -45,7 +45,7 @@ class _FlashManager(object):
         """Block blinding and deafening if player should not be flashed."""
         # Is there no flashbang detonating at this time?
         if self.flashbang_team is None:
-            return
+            return None
 
         # Block for spectating player?
         player = make_object(Player, stack_data[0])
@@ -58,17 +58,18 @@ class _FlashManager(object):
 
         # Don't block for enemy player
         if player.team != self.flashbang_team:
-            return
+            return None
 
         # Block for self flash?
         if (
             player.userid == self.flashbang_thrower and
             flash_thrower.get_bool()
         ):
-            return
+            return None
 
         # Block the flash for the player
         return False
+
 
 _flash_manager = _FlashManager()
 
