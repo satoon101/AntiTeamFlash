@@ -29,7 +29,7 @@ class _FlashManager:
         """Store the flashbang's thrower/team."""
         # Store the team
         weapon = make_object(Weapon, stack_data[0])
-        self.flashbang_team = weapon.team
+        self.flashbang_team = weapon.team_index
 
         # Store the owner's userid
         owner = weapon.owner
@@ -49,7 +49,7 @@ class _FlashManager:
 
         # Block for spectating player?
         player = make_object(Player, stack_data[0])
-        if player.team <= 1:
+        if player.team_index <= 1:
             return None if flash_spectator.get_bool() else False
 
         # Block for dead player?
@@ -57,7 +57,7 @@ class _FlashManager:
             return None if flash_dead.get_bool() else False
 
         # Don't block for enemy player
-        if player.team != self.flashbang_team:
+        if player.team_index != self.flashbang_team:
             return None
 
         # Block for self flash?

@@ -23,4 +23,4 @@ __all__ = (
 # =============================================================================
 # >> GLOBAL VARIABLES
 # =============================================================================
-CONFIG_STRINGS = LangStrings(f'{info.name}/config_strings')
+CONFIG_STRINGS = LangStrings(info.name)
