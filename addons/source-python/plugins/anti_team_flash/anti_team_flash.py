@@ -6,9 +6,7 @@
 # >> IMPORTS
 # =============================================================================
 # Source.Python
-from entities.hooks import EntityCondition
-from entities.hooks import EntityPostHook
-from entities.hooks import EntityPreHook
+from entities.hooks import EntityCondition, EntityPostHook, EntityPreHook
 from memory import make_object
 from players.entity import Player
 from players.helpers import userid_from_index
@@ -77,24 +75,24 @@ _flash_manager = _FlashManager()
 # =============================================================================
 # >> FUNCTION HOOKS
 # =============================================================================
-@EntityPreHook(EntityCondition.is_bot_player, 'blind')
-@EntityPreHook(EntityCondition.is_human_player, 'blind')
-@EntityPreHook(EntityCondition.is_player, 'deafen')
+@EntityPreHook(EntityCondition.is_bot_player, "blind")
+@EntityPreHook(EntityCondition.is_human_player, "blind")
+@EntityPreHook(EntityCondition.is_player, "deafen")
 def _block_blind_and_deafen(stack_data):
     return _flash_manager.should_block_blind_and_deafen(stack_data)
 
 
 @EntityPreHook(
-    EntityCondition.equals_entity_classname('flashbang_projectile'),
-    'detonate'
+    EntityCondition.equals_entity_classname("flashbang_projectile"),
+    "detonate",
 )
 def _pre_flashbang_detonate(stack_data):
     _flash_manager.pre_detonate(stack_data)
 
 
 @EntityPostHook(
-    EntityCondition.equals_entity_classname('flashbang_projectile'),
-    'detonate'
+    EntityCondition.equals_entity_classname("flashbang_projectile"),
+    "detonate",
 )
 def _post_flashbang_detonate(stack_data, return_value):
     _flash_manager.post_detonate()

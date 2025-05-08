@@ -11,12 +11,11 @@ from translations.strings import LangStrings
 # Plugin
 from .info import info
 
-
 # =============================================================================
 # >> ALL DECLARATION
 # =============================================================================
 __all__ = (
-    'CONFIG_STRINGS',
+    "CONFIG_STRINGS",
 )
 
 
