@@ -48,11 +48,11 @@ class _FlashManager:
         # Block for spectating player?
         player = make_object(Player, stack_data[0])
         if player.team_index <= 1:
-            return None if flash_spectator.get_bool() else False
+            return None if bool(flash_spectator) else False
 
         # Block for dead player?
         if player.dead:
-            return None if flash_dead.get_bool() else False
+            return None if bool(flash_dead) else False
 
         # Don't block for enemy player
         if player.team_index != self.flashbang_team:
@@ -61,7 +61,7 @@ class _FlashManager:
         # Block for self flash?
         if (
             player.userid == self.flashbang_thrower and
-            flash_thrower.get_bool()
+            bool(flash_thrower)
         ):
             return None
 
